@@ -327,7 +327,7 @@ public class ABCDDOMBuilder {
 					dataset.appendChild(rightsU);
 				}
 				
-
+				/**
 				//relation from description/URI
 				if(esObject.getRelationURI().length() > 0) {
 					Element relation = doc.createElement("dc:relation");
@@ -340,6 +340,7 @@ public class ABCDDOMBuilder {
 					relation.setTextContent(esObject.getRelationUnitID());
 					dataset.appendChild(relation);
 				}
+				**/
 				
 				//parentIdentifier
 				Element parentIdentifier = doc.createElement("parentIdentifier");
