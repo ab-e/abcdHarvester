@@ -28,19 +28,66 @@ public class DateUtility {
 	}
 	
 
-	public static String isDateTimeValid(String in) {
+		public static String isDateTimeValid(String in) {
+		boolean bReformat = false;
 		logger = Logger.getLogger(DateUtility.class.getName());
-		String retString;
+		String retString = "";
 		DateTimeFormatter dateFormatter = DateTimeFormatter
-			    .ofPattern("yyyy-MM-dd'T'HH:mm:ss[xxx][xx][X]", Locale.GERMAN).withResolverStyle(ResolverStyle.LENIENT);
-	    try {
-            //dateFormatter.parse("May / June 2019");
-	    	TemporalAccessor ta = dateFormatter.parse(in);
-	    	retString = in;
-        } catch (DateTimeParseException e) {
-        	logger .error("Error parsing date: " + in + ", not setting timestamp.");
-           retString = "";
-        }
+				.ofPattern("yyyy-MM-dd'T'HH:mm:ss[xxx][xx][X]", Locale.GERMAN).withResolverStyle(ResolverStyle.LENIENT);
+		try {
+			// dateFormatter.parse("May / June 2019");
+			TemporalAccessor ta = dateFormatter.parse(in);
+			retString = in;
+		} catch (DateTimeParseException e) {
+			bReformat = true;
+			// logger .error("Error parsing date: " + in + ", not setting timestamp.");
+			// retString = "";
+		}
+
+		if (bReformat) {
+			DateTimeFormatter dateFormatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.GERMAN)
+					.withResolverStyle(ResolverStyle.LENIENT);
+			try {
+				// dateFormatter.parse("May / June 2019");
+				TemporalAccessor ta = dateFormatter2.parse(in);
+				retString = in;
+				bReformat = false;
+			} catch (DateTimeParseException e) {
+				bReformat = true;
+				// logger .error("Error parsing date: " + in + ", not setting timestamp.");
+				// retString = "";
+			}
+		} //
+
+		if (bReformat) {
+			DateTimeFormatter dateFormatter3 = DateTimeFormatter.ofPattern("yyyy-MM", Locale.GERMAN)
+					.withResolverStyle(ResolverStyle.LENIENT);
+			try {
+				// dateFormatter.parse("May / June 2019");
+				TemporalAccessor ta = dateFormatter3.parse(in);
+				retString = in;
+				bReformat = false;
+			} catch (DateTimeParseException e) {
+				bReformat = true;
+				// logger .error("Error parsing date: " + in + ", not setting timestamp.");
+				// retString = "";
+			}
+		} //
+
+		if (bReformat) {
+			DateTimeFormatter dateFormatter4 = DateTimeFormatter.ofPattern("yyyy", Locale.GERMAN)
+					.withResolverStyle(ResolverStyle.LENIENT);
+			try {
+				// dateFormatter.parse("May / June 2019");
+				TemporalAccessor ta = dateFormatter4.parse(in);
+				retString = in;
+			} catch (DateTimeParseException e) {
+
+				logger.error("Error parsing date: " + in + ", not setting timestamp.");
+				retString = "";
+			}
+		} //
+
 		return retString;
 	}
 	
